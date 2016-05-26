@@ -1,4 +1,4 @@
-(import datetime feedparser time functools itertools)
+(import datetime feedparser time functools itertools jinja2)
 
 
 (defn date/previous-monday [when]
@@ -70,10 +70,39 @@
        (filter (fn [(, who posts)] (= 0 (len (list posts)))) report)))
 
 
-(print (list (iron-bloggers/slackers
-  (iron-bloggers-report
-    (date/parse-week '2014-08-15)
+;;; HUMAN STUFF
+
+
+(setv iron-bloggers
     '((paultag 2010-01-01 (("http://blog.pault.ag/rss" :rss)
                              ("http://notes.pault.ag/feeds/all-en.rss.xml" :rss)))
       (zobel   2020-02-02 (("http://blog.zobel.ftbfs.de/rss.xml" :rss)))
-      (corsec  2010-01-01 (("http://www.corsac.net/rss.php?cat=debian" :rss))))))))
+      (corsec  2010-01-01 (("http://www.corsac.net/rss.php?cat=debian" :rss)))))
+
+;;;;;;;;;
+
+(defn slackers [report]
+  (list (iron-bloggers/slackers report)))
+
+(defn report [when]
+  (list (iron-bloggers-report (date/parse-week when) iron-bloggers)))
+
+(defn mail [report]
+  (->
+    (jinja2.Environment :loader (jinja2.FileSystemLoader "./templates"))
+    (.get-template "mail.j2")
+    (.render :report report :slackers (slackers report))))
+
+(import sys readline hy.cmdline)
+(setv sys.ps1 "IB> ")
+(setv sys.ps2 "... ")
+
+(.interact (hy.cmdline.HyREPL :locals (locals)) "
+Iron Blogger REPL
+
+  (setv my-report (report '2014-08-15))
+  ; run a report for the week of 2014-08-15.
+
+  (slackers my-report)
+
+")
