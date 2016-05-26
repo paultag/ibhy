@@ -1,4 +1,6 @@
-(import jinja2)
+(import jinja2
+        datetime
+        [ib.core [date/previous-monday]])
 
 
 (defn render [template environ]
@@ -6,3 +8,6 @@
          [(-> (jinja2.Environment :loader (jinja2.FileSystemLoader "templates"))
              (.get-template template))]
          environ))
+
+(defn this-week []
+  (date/previous-monday (.date (datetime.datetime.now))))

@@ -1,7 +1,5 @@
-(import datetime
-        [ib.utils [render]]
-        [ib.iron-blogger [iron-bloggers-report iron-bloggers/slackers]]
-        [ib.core [date/parse-week date/previous-monday]])
+(import [ib.utils [render this-week]]
+        [ib.iron-blogger [iron-bloggers-report iron-bloggers/slackers]])
 
 (setv iron-bloggers
   '((paultag            2010-01-01 (("http://blog.pault.ag/rss" :rss)
@@ -11,14 +9,11 @@
     (corsec             2010-01-01 (("http://www.corsac.net/rss.php?cat=debian" :rss)))))
 
 
-(defn this-week []
-  (date/previous-monday (.date (datetime.datetime.now))))
-
-
 (defn this-weeks-report []
   (list (iron-bloggers-report (this-week) iron-bloggers)))
 
 
 (setv report (this-weeks-report))
 
-(print (render "mail.j2" {"report" report "slackers" (iron-bloggers/slackers report)}))
+(print (render "mail.j2" {"report" report
+                          "slackers" (iron-bloggers/slackers report)}))
