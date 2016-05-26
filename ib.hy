@@ -42,13 +42,6 @@
 
 ;;; 
 
-; (for [(, who posts)
-;   (-> (bloggers/posts/by-week
-;         (date/parse-week '2014-08-15)
-;         [['paultag (feeds/from-rss ["http://blog.pault.ag/rss"
-;                                     "http://notes.pault.ag/feeds/all-en.rss.xml"])]]))]
-
-
 (defn iron-blogger-report/parse-feed [(, feed type)]
   ((get {:rss feed/from-rss} type) feed))
 
