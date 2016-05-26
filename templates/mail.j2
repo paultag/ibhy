@@ -1,0 +1,17 @@
+Good week, lovely iron-bloggers!
+
+This week, the following folks slacked:
+{% for slacker in slackers %}
+  - {{slacker}}
+{% endfor %}
+This week, we saw the following amazing blog posts:
+{% for person, posts in report %}
+{%- if posts|length %}
+  - {{person}}
+    {%- for post in posts %}
+    + {{post.title}}
+    {%- endfor -%}
+{% endif %}
+{% endfor %}
+
+Until next week!
