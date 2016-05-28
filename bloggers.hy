@@ -3,4 +3,4 @@
                                     ("http://notes.pault.ag/feeds/all-en.rss.xml" :rss)))
     (konklone           2016-05-30 (("https://konklone.com/rss.xml" :rss)))
     (tjl                2016-05-30 (("https://tomlee.wtf/feed/" :rss)))
-    (jacks              2016-10-01 (("http://linzjax.github.io/feed.xml" :rss)))))
+    (jacks              2016-10-03 (("http://linzjax.github.io/feed.xml" :rss)))))
