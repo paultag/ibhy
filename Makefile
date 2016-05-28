@@ -15,9 +15,9 @@ balance:
 send-email: email
 	mutt -H email
 
-git-commit:
+git-commit: debt-slackers
 	git add ledger
-	git commit -am 'Weekly update'
+	git commit -am 'Add in weekly debts'
 
 update: debt-slackers send-email git-commit
 
