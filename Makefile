@@ -1,4 +1,4 @@
-all: clean debt-slackers email
+all: clean debt-slackers email balance
 
 clean:
 	rm email
@@ -11,3 +11,9 @@ debt-slackers: report.json
 
 email: report.json
 	hy cli.hy generate-email $(shell date +%Y_%m_%d) report.json email
+
+balance:
+	ledger -f ledger balance
+
+
+.PHONY: balance clean
