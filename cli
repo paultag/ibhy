@@ -5,7 +5,7 @@
         [bloggers [bloggers]])
 
 
-(defn ! [iter] (for [- iter] (do 1)))
+(defn ! [iter] (for [- iter] -))
 
 
 (defn generate-report [path]

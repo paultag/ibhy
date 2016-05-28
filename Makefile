@@ -1,13 +1,13 @@
 all: update
 
 report.json:
-	cli generate-report report.json
+	./cli generate-report report.json
 
 debt-slackers: report.json
-	cli debt-slackers $(shell date +%Y_%m_%d) report.json ledger
+	./cli debt-slackers $(shell date +%Y_%m_%d) report.json ledger
 
 email: report.json
-	cli generate-email $(shell date +%Y_%m_%d) report.json email
+	./cli generate-email $(shell date +%Y_%m_%d) report.json email
 
 balance:
 	ledger -f ledger balance
