@@ -1,7 +1,4 @@
-all: clean debt-slackers email balance
-
-clean:
-	rm -f email
+all: update
 
 report.json:
 	hy cli.hy generate-report report.json
@@ -14,6 +11,15 @@ email: report.json
 
 balance:
 	ledger -f ledger balance
+
+send-email: email
+	mutt -H email
+
+git-commit:
+	git add ledger
+	git commit -am 'Weekly update'
+
+update: debt-slackers send-email git-commit
 
 
 .PHONY: balance clean
