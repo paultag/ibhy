@@ -1,7 +1,7 @@
 all: clean debt-slackers email balance
 
 clean:
-	rm email
+	rm -f email
 
 report.json:
 	hy cli.hy generate-report report.json
