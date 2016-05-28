@@ -5,11 +5,6 @@
         [bloggers [bloggers]])
 
 
-
-
-; (print (render "mail.j2" {"report" report
-;                           "slackers" (iron-bloggers/slackers report)}))
-
 (defn ! [iter] (for [- iter] (do 1)))
 
 
@@ -22,25 +17,42 @@
   (with [[fd (open path "r")]]
     (json.load fd)))
 
+
 (defn ledger-debt [when uid amount]
   (apply .format ["{when:%Y-%m-%d} Week of {when:%Y-%m-%d}
   User:{uid}     {amount}
   Pool:Owed:{uid}
 "] {"when" when
-                     "uid" uid
-                     "amount" amount}))
+    "uid" uid
+    "amount" amount}))
 
 (defn debt-slacker [ledger-path when uid]
   (with [[fd (open ledger-path "a")]]
     (fd.write (ledger-debt when uid -5))))
+
 
 (defn debt-slackers [when report-path ledger-path]
   (! (map (fn [who] (debt-slacker ledger-path (date/parse-week when) who))
      (iron-bloggers/slackers (read-report-from-file report-path)))))
 
 
+(defn email-template-from-report [when report]
+  (render "mail.j2" {"report" report
+                     "slackers" (iron-bloggers/slackers report)
+                     "when" when}))
+
+
+(defn email-template [when report-path output-path]
+  (with [[fd (open output-path "w")]]
+    (fd.write (email-template-from-report
+                (date/parse-week when)
+                (read-report-from-file report-path)))))
+
+
 (defn main [command &rest args]
   (apply (get {"generate-report" generate-report
+               "generate-email" email-template
                "debt-slackers" debt-slackers} command) args))
+
 
 (apply main (slice sys.argv 1))
