@@ -1,3 +1,5 @@
+#!/usr/bin/env hy
+
 (import sys json
         [ib [date/parse-week date/parse render this-week iron-bloggers-report iron-bloggers/slackers]]
         [bloggers [bloggers]])
