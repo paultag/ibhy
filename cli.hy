@@ -1,5 +1,5 @@
 (import sys json
-        [ib.core [date/parse-week]]
+        [ib.core [date/parse-week date/parse]]
         [ib.utils [render this-week]]
         [ib.iron-blogger [iron-bloggers-report iron-bloggers/slackers]]
         [bloggers [bloggers]])
@@ -26,6 +26,16 @@
     "uid" uid
     "amount" amount}))
 
+
+(defn ledger-payment [when uid amount]
+  (apply .format ["{when:%Y-%m-%d} Payment into the Pool
+  Pool:Owed:{uid}     {amount}
+  Pool:Paid
+"] {"when" when
+    "uid" uid
+    "amount" amount}))
+
+
 (defn debt-slacker [ledger-path when uid]
   (with [[fd (open ledger-path "a")]]
     (fd.write (ledger-debt when uid -5))))
@@ -42,6 +52,11 @@
                      "when" when}))
 
 
+(defn payment [when uid amount ledger-path]
+  (with [[fd (open ledger-path "a")]]
+    (fd.write (ledger-payment (date/parse when) uid amount))))
+
+
 (defn email-template [when report-path output-path]
   (with [[fd (open output-path "w")]]
     (fd.write (email-template-from-report
@@ -52,6 +67,7 @@
 (defn main [command &rest args]
   (apply (get {"generate-report" generate-report
                "generate-email" email-template
+               "payment" payment
                "debt-slackers" debt-slackers} command) args))
 
 
