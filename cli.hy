@@ -1,7 +1,5 @@
 (import sys json
-        [ib.core [date/parse-week date/parse]]
-        [ib.utils [render this-week]]
-        [ib.iron-blogger [iron-bloggers-report iron-bloggers/slackers]]
+        [ib [date/parse-week date/parse render this-week iron-bloggers-report iron-bloggers/slackers]]
         [bloggers [bloggers]])
 
 
