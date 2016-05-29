@@ -1,4 +1,9 @@
 # Feeds
 
-[{{url}}]
-name = {{name}}
+{% for uid, start_date, feeds in bloggers %}
+# Feeds for {{uid}}
+{% for feed, type in feeds %}
+[{{feed}}]
+name = {{uid}}
+{% endfor %}
+{% endfor %}

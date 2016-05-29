@@ -63,11 +63,16 @@
                 (date/parse-week when)
                 (read-report-from-file report-path)))))
 
+(defn planet-config [output-path]
+  (with [[fd (open output-path "w")]]
+    (fd.write (render "config.ini.j2" {"bloggers" bloggers}))))
+
 
 (defn main [command &rest args]
   (apply (get {"generate-report" generate-report
                "generate-email" email-template
                "payment" payment
+               "planet-config" planet-config
                "debt-slackers" debt-slackers} command) args))
 
 
