@@ -15,6 +15,9 @@ balance:
 send-email: email
 	mutt -H email
 
+config.ini:
+	./cli planet-config config.ini
+
 git-commit: debt-slackers
 	git add ledger
 	git commit -am 'Add in weekly debts'
