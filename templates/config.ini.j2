@@ -1,3 +1,45 @@
+# Planet configuration file
+
+# Every planet needs a [Planet] section
+[Planet]
+# name: Your planet's name
+# link: Link to the main page
+# owner_name: Your name
+# owner_email: Your e-mail address
+name = Planet Iron Blogger
+link = http://dc.iron-blogger.com/planet/
+owner_name = Paul R. Tagliamonte
+owner_email = paultag@gmail.com
+
+# cache_directory: Where cached feeds are stored
+# new_feed_items: Number of items to take from new feeds
+# log_level: One of DEBUG, INFO, WARNING, ERROR or CRITICAL
+cache_directory = cache
+new_feed_items = 2
+log_level = DEBUG
+
+# template_files: Space-separated list of output template files
+template_files = templates/index.html.tmpl templates/atom.xml.tmpl templates/rss20.xml.tmpl templates/rss10.xml.tmpl templates/opml.xml.tmpl templates/foafroll.xml.tmpl
+
+# The following provide defaults for each template:
+# output_dir: Directory to place output files
+# items_per_page: How many items to put on each page
+# days_per_page: How many complete days of posts to put on each page
+#                This is the absolute, hard limit (over the item limit)
+# date_format: strftime format for the default 'date' template variable
+# new_date_format: strftime format for the 'new_date' template variable
+# encoding: output encoding for the file, Python 2.3+ users can use the
+#           special "xml" value to output ASCII with XML character references
+# locale: locale to use for (e.g.) strings in dates, default is taken from your
+#         system. You can specify more locales separated by ':', planet will
+#         use the first available one
+output_dir = out
+items_per_page = 250
+days_per_page = 0
+date_format = %B %d, %Y %I:%M %p
+new_date_format = %B %d, %Y
+encoding = utf-8
+
 # Feeds
 
 {% for uid, start_date, feeds in bloggers %}
