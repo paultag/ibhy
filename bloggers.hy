@@ -4,4 +4,5 @@
     (konklone           2016-05-30 (("https://konklone.com/rss.xml" :rss)))
     (tjl                2016-05-30 (("https://tomlee.wtf/feed/" :rss)))
     (zmaril             2016-05-30 (("https://zacharymaril.com/feed/" :rss)))
+    (bjames             2016-05-30 (("http://thisweekiate.tumblr.com/rss" :rss)))
     (jacks              2016-10-03 (("http://linzjax.github.io/feed.xml" :rss)))))
