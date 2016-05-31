@@ -91,4 +91,4 @@ Valid Commands:")
   (apply (*commands*.get command help) args))
 
 
-(apply main (slice sys.argv 1))
+(apply main (or (slice sys.argv 1) ['help]))
