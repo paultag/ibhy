@@ -9,6 +9,7 @@
 
 
 (defn generate-report [path]
+  "Generate a report file ([path])"
   (with [[fd (open path "w")]]
     (json.dump (list (iron-bloggers-report (this-week) bloggers)) fd)))
 
@@ -42,6 +43,7 @@
 
 
 (defn debt-slackers [when report-path ledger-path]
+  "Debt report.json slackers to the ledger file ([when] [report-path] [ledger-path])"
   (! (map (fn [who] (debt-slacker ledger-path (date/parse-week when) who))
      (iron-bloggers/slackers (read-report-from-file report-path)))))
 
@@ -53,27 +55,40 @@
 
 
 (defn payment [when uid amount ledger-path]
+  "Note that someone paid up ([when] [uid] [amount] [ledger-path])"
   (with [[fd (open ledger-path "a")]]
     (fd.write (ledger-payment (date/parse when) uid amount))))
 
 
 (defn email-template [when report-path output-path]
+  "Write a email template to disk ([when] [report-path] [output-path])"
   (with [[fd (open output-path "w")]]
     (fd.write (email-template-from-report
                 (date/parse-week when)
                 (read-report-from-file report-path)))))
 
 (defn planet-config [output-path]
+  "write out a Planet 2.0 config file ([output-path])"
   (with [[fd (open output-path "w")]]
     (fd.write (render "config.ini.j2" {"bloggers" bloggers}))))
 
+(defn help [&rest -]
+  "display this help page"
+  (print "Help: cli [command] [args...]
+
+Valid Commands:")
+  (for [(, command func) (*commands*.items)]
+    (print (.format "  {}: {}" command (. func __doc__)))))
+
+(def *commands* {"generate-report" generate-report
+                 "generate-email" email-template
+                 "payment" payment
+                 "help" help
+                 "planet-config" planet-config
+                 "debt-slackers" debt-slackers} )
 
 (defn main [command &rest args]
-  (apply (get {"generate-report" generate-report
-               "generate-email" email-template
-               "payment" payment
-               "planet-config" planet-config
-               "debt-slackers" debt-slackers} command) args))
+  (apply (*commands*.get command help) args))
 
 
 (apply main (slice sys.argv 1))
