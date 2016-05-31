@@ -74,3 +74,6 @@
 
 (defn this-week []
   (date/previous-monday (.date (datetime.datetime.now))))
+
+(defn last-week []
+  (- (this-week) (datetime.timedelta :days 7)))

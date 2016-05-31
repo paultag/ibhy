@@ -1,7 +1,7 @@
 #!/usr/bin/env hy
 
 (import sys json
-        [ib [date/parse-week date/parse render this-week iron-bloggers-report iron-bloggers/slackers]]
+        [ib [date/parse-week date/parse render last-week iron-bloggers-report iron-bloggers/slackers]]
         [bloggers [bloggers]])
 
 
@@ -11,7 +11,7 @@
 (defn generate-report [path]
   "Generate a report file ([path])"
   (with [[fd (open path "w")]]
-    (json.dump (list (iron-bloggers-report (this-week) bloggers)) fd)))
+    (json.dump (list (iron-bloggers-report (last-week) bloggers)) fd)))
 
 
 (defn read-report-from-file [path]
