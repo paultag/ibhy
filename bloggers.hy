@@ -8,4 +8,5 @@
     (ajschumacher       2016-05-30 (("http://planspace.org/rss.xml" :rss)))
     (danielschuman      2016-05-30 (("https://medium.com/feed/@danielschuman" :rss)
                                     ("http://congressionaldata.org/feed/" :rss)))
+    (b                  2016-05-30 (("http://modelingwithdata.org/modeling.xml" :rss)))
     (jacks              2016-10-03 (("http://linzjax.github.io/feed.xml" :rss)))))
