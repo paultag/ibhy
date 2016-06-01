@@ -13,4 +13,5 @@
     (vdavez             2016-05-30 (("https://esq.io/feed.xml" :rss)))
     (joelcollinsdc      2016-05-30 (("http://joelcollins.net/feed.xml" :rss)))
     (cathdandrews       2016-05-30 (("http://outtamindouttasite.typepad.com/outtasite/rss.xml" :rss)))
+    (akmattos           2016-10-03 (("http://duhsquared.tumblr.com/rss" :rss)))
     (jacks              2016-10-03 (("http://linzjax.github.io/feed.xml" :rss)))))
