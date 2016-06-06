@@ -1,13 +1,13 @@
-(import datetime feedparser time itertools jinja2)
+(import datetime feedparser time itertools jinja2 pytz [email.utils [parsedate]])
 
 
 (defn date/previous-monday [when]
   "Given some random Python date, return the previous monday"
   (- when (datetime.timedelta :days (.weekday when))))
 
-(defn date/from-struct_time [when]
-  "Given a silly time.struct_time, turn it into a datetime.date"
-  (datetime.date.fromtimestamp (time.mktime when)))
+(defn vprint [body]
+  (print body)
+  body)
 
 (defn date/parse [when]
   "Given a string-ish in YYYY-MM-DD, turn it into a date"
@@ -19,9 +19,14 @@
 
 ;;; 
 
+
+(defn date/from-timestamp [when]
+  (.date (datetime.datetime.fromtimestamp (time.mktime (parsedate when)))))
+
+
 (defn feed/from-rss [feed]
   "Parse an RSS feed into a feed dict"
-  (map (fn [post] {"when"  (date/from-struct_time (. post ["published_parsed"]))
+  (map (fn [post] {"when"  (date/from-timestamp (. post ["published"]))
                    "title" (. post ["title"])
                    "url"   (. post ["id"])})
        (. (feedparser.parse feed) ["entries"])))
@@ -53,7 +58,7 @@
 
 (defn iron-bloggers-report/started? [when (, - start-date -)]
   "Check to see if the date is before or after their start date"
-  (< (date/parse-week start-date) when))
+  (<= (date/parse-week start-date) when))
 
 (defn iron-bloggers-report [when bloggers]
   "Given a list of iron bloggers, make an iron blogger post report"
@@ -73,7 +78,7 @@
          environ))
 
 (defn this-week []
-  (date/previous-monday (.date (datetime.datetime.now))))
+  (date/previous-monday (.date (datetime.datetime.utcnow))))
 
 (defn last-week []
   (- (this-week) (datetime.timedelta :days 7)))
