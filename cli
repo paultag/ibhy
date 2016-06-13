@@ -61,6 +61,11 @@
     (fd.write (ledger-payment (date/parse when) uid amount))))
 
 
+(defn debt [when uid ledger-path]
+  "Note that someone actually owes this week ([when] [uid] [ledger-path])"
+  (debt-slacker ledger-path (date/parse when) uid))
+
+
 (defn email-template [when report-path output-path]
   "Write a email template to disk ([when] [report-path] [output-path])"
   (with [[fd (open output-path "w")]]
@@ -86,6 +91,7 @@ Valid Commands:")
                  "payment" payment
                  "help" help
                  "planet-config" planet-config
+                 "debt-slacker" debt
                  "debt-slackers" debt-slackers} )
 
 (defn main [command &rest args]
