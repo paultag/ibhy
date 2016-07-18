@@ -1,7 +1,7 @@
 (setv bloggers
   '((paultag            2016-05-30 (("http://blog.pault.ag/rss" :rss)
                                     ("https://notes.pault.ag/feeds/all.rss.xml" :rss)))
-    (konklone           2016-05-30 (("https://konklone.com/rss.xml" :rss)))
+    ; (konklone           2016-05-30 (("https://konklone.com/rss.xml" :rss)))
     (tjl                2016-05-30 (("https://tomlee.wtf/feed/" :rss)))
     (zmaril             2016-05-30 (("https://zacharymaril.com/feed/" :rss)))
     (bjames             2016-05-30 (("http://thisweekiate.tumblr.com/rss" :rss)))
