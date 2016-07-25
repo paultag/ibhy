@@ -9,6 +9,7 @@
     (danielschuman      2016-05-30 (("https://medium.com/feed/@danielschuman" :rss)
                                     ("https://feed43.com/daniel_schuman_cdcblog.xml" :rss)))
     (b                  2016-05-30 (("http://modelingwithdata.org/modeling.xml" :rss)
+                                    ("https://medium.com/feed/@b_k" :rss)
                                     ("https://bureauphile.wordpress.com/feed/" :rss)))
     (vdavez             2016-05-30 (("https://esq.io/feed.xml" :rss)))
 
