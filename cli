@@ -15,6 +15,11 @@
     (json.dump (list (iron-bloggers-report (last-week) bloggers)) fd :cls JSONEncoderPlus)))
 
 
+(defn generate-old-report [when path]
+  "Generate a report file ([path])"
+  (with [[fd (open path "w")]]
+    (json.dump (list (iron-bloggers-report (date/parse when) bloggers)) fd :cls JSONEncoderPlus)))
+
 (defn read-report-from-file [path]
   (with [[fd (open path "r")]]
     (json.load fd)))
@@ -87,6 +92,7 @@ Valid Commands:")
     (print (.format "  {}: {}" command (. func __doc__)))))
 
 (def *commands* {"generate-report" generate-report
+                 "generate-old-report" generate-old-report
                  "generate-email" email-template
                  "payment" payment
                  "help" help
