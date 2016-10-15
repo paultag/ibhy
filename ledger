@@ -238,3 +238,6 @@
 2016-10-12 Party Expenses
   Pool:Paid     -126.70
   Party
+2016-10-15 Payment into the Pool
+  Pool:Owed:paultag     -15
+  Pool:Paid
